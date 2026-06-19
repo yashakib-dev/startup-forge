@@ -7,6 +7,8 @@ import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { useState, useRef } from "react";
 import Image from "next/image";
+import { authClient } from "@/lib/auth-client";
+import { redirect } from "next/navigation";
 
 const imgbbApiKey = process.env.NEXT_PUBLIC_IMGBB_API_KEY;
 
@@ -49,8 +51,22 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     if (!data.image) { setError("image", { message: "Profile image is required" }); return; }
-    try { console.log(data); toast.success("Registration successful!"); }
-    catch { toast.error("Registration failed!"); }
+
+    const { email, name, image, password, role } = data;
+    const { data: res, error } = await authClient.signUp.email({
+      name: name,
+      email: email,
+      password: password,
+      image: image,
+      role: role,
+    });
+    if (res) {
+      toast.success("Registration successful!");
+      redirect("/");
+    }
+    if (error) {
+      toast.error(error.message);
+    }
   };
 
   const inputCls = "w-full bg-transparent text-white text-sm placeholder:text-zinc-600 outline-none";
@@ -143,7 +159,7 @@ const Register = () => {
               <label className="text-sm font-medium text-zinc-300 ml-1">Select Your Role</label>
               <div className="grid grid-cols-2 gap-3 mt-1">
                 {[{ value: "founder", label: "Founder", accent: "peer-checked:border-blue-500/60 peer-checked:bg-blue-950/20" },
-                  { value: "collaborator", label: "Collaborator", accent: "peer-checked:border-indigo-500/60 peer-checked:bg-indigo-950/20" }
+                { value: "collaborator", label: "Collaborator", accent: "peer-checked:border-indigo-500/60 peer-checked:bg-indigo-950/20" }
                 ].map((r) => (
                   <label key={r.value} className="relative flex items-center justify-center rounded-xl cursor-pointer">
                     <input type="radio" value={r.value} className="peer sr-only" {...register("role", { required: "Select a role" })} />

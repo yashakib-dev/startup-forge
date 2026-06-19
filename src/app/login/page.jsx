@@ -7,6 +7,7 @@ import { FiMail, FiLock, FiEye, FiEyeOff } from "react-icons/fi";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 import { useState } from "react";
+import { authClient } from "@/lib/auth-client";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -19,17 +20,32 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-      console.log(data);
-      toast.success("Login successful!");
-      // Login Logic 
+
+      const { email, password } = data;
+      const { data: res, error } = await authClient.signIn.email({
+        email: email,
+        password: password,
+        rememberMe: true,
+        callbackURL: "/",
+      });
+      if (error) {
+        console.log(error);
+        
+        toast.error(error.message);
+      }
+      if (res) {
+        toast.success("Login successful")
+      }
+
     } catch (error) {
       toast.error("Login failed!");
     }
   };
 
-  const handleGoogleLogin = () => {
-    toast.success("Redirecting to Google...");
-    // Google Auth Logic
+  const handleGoogleLogin = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+    });
   };
 
   return (
@@ -42,7 +58,7 @@ const Login = () => {
         <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/30 backdrop-blur-xl p-8 sm:p-10">
           {/* Header */}
           <div className="text-center my-6 mb-8">
-            
+
             <h1 className="text-3xl font-extrabold text-white">
               Welcome{" "}
               <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
@@ -62,16 +78,14 @@ const Login = () => {
                 Email
               </label>
               <div
-                className={`flex items-center gap-3 rounded-xl border ${
-                  errors.email
-                    ? "border-red-500/60"
-                    : "border-zinc-700/80 focus-within:border-blue-500/60"
-                } bg-zinc-900/50 px-4 py-3 transition-all duration-300 focus-within:shadow-[0_0_15px_rgba(59,130,246,0.1)]`}
+                className={`flex items-center gap-3 rounded-xl border ${errors.email
+                  ? "border-red-500/60"
+                  : "border-zinc-700/80 focus-within:border-blue-500/60"
+                  } bg-zinc-900/50 px-4 py-3 transition-all duration-300 focus-within:shadow-[0_0_15px_rgba(59,130,246,0.1)]`}
               >
                 <FiMail
-                  className={`text-lg shrink-0 ${
-                    errors.email ? "text-red-400" : "text-zinc-500"
-                  }`}
+                  className={`text-lg shrink-0 ${errors.email ? "text-red-400" : "text-zinc-500"
+                    }`}
                 />
                 <input
                   type="email"
@@ -99,16 +113,14 @@ const Login = () => {
                 Password
               </label>
               <div
-                className={`flex items-center gap-3 rounded-xl border ${
-                  errors.password
-                    ? "border-red-500/60"
-                    : "border-zinc-700/80 focus-within:border-blue-500/60"
-                } bg-zinc-900/50 px-4 py-3 transition-all duration-300 focus-within:shadow-[0_0_15px_rgba(59,130,246,0.1)]`}
+                className={`flex items-center gap-3 rounded-xl border ${errors.password
+                  ? "border-red-500/60"
+                  : "border-zinc-700/80 focus-within:border-blue-500/60"
+                  } bg-zinc-900/50 px-4 py-3 transition-all duration-300 focus-within:shadow-[0_0_15px_rgba(59,130,246,0.1)]`}
               >
                 <FiLock
-                  className={`text-lg shrink-0 ${
-                    errors.password ? "text-red-400" : "text-zinc-500"
-                  }`}
+                  className={`text-lg shrink-0 ${errors.password ? "text-red-400" : "text-zinc-500"
+                    }`}
                 />
                 <input
                   type={showPassword ? "text" : "password"}
@@ -168,17 +180,17 @@ const Login = () => {
           </form>
 
           {/* Divider */}
-                  <div className="relative my-6">
-              <div className="absolute inset-0 flex items-center">
-                <div className="w-full border-t border-zinc-800" />
-              </div>
-
-              <div className="relative flex justify-center">
-                <span className="bg-zinc-950 px-3 text-sm text-zinc-500">
-                  OR
-                </span>
-              </div>
+          <div className="relative my-6">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-zinc-800" />
             </div>
+
+            <div className="relative flex justify-center">
+              <span className="bg-zinc-950 px-3 text-sm text-zinc-500">
+                OR
+              </span>
+            </div>
+          </div>
 
           {/* Google Login */}
           <Button
