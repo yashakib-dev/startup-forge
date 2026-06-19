@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import NextLink from 'next/link';
+import Link from 'next/link';
 import { Button } from "@heroui/react";
 import { motion } from 'framer-motion';
 import { FaLongArrowAltRight } from "react-icons/fa";
@@ -80,26 +80,26 @@ const Hero = () => {
                         variants={itemVariants}
                         className="mt-10 flex flex-wrap gap-4 justify-center w-full sm:w-auto"
                     >
-                        <Button
-                            as={NextLink}
-                            href="/register"
+                        <Link href="/register">
+                          <Button
                             color="primary"
                             variant="solid"
                             size="lg"
                             className="w-full sm:w-auto font-semibold p-6 text-white bg-gradient-to-r from-blue-600 to-indigo-600 shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] transition-all hover:scale-105 duration-200 border-none rounded-xl"
-                        >
+                          >
                             Publish an Idea
                            <FaLongArrowAltRight />
-                        </Button>
-                        <Button
-                            as={NextLink}
-                            href="/opportunities"
+                          </Button>
+                        </Link>
+                        <Link href="/opportunities">
+                          <Button
                             variant="bordered"
                             size="lg"
                             className="w-full sm:w-auto font-semibold border-zinc-700 border py-6 text-zinc-300 hover:bg-zinc-900/50 hover:text-white transition-all hover:scale-105 duration-200 rounded-xl"
-                        >
+                          >
                             Find Opportunities
-                        </Button>
+                          </Button>
+                        </Link>
                     </motion.div>
 
               

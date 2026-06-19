@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import NextLink from "next/link";
-import { Link, Button } from "@heroui/react";
+import Link from "next/link";
+import { Button } from "@heroui/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +40,6 @@ const Navbar = () => {
 
           {/* Logo */}
           <Link
-            as={NextLink}
             href="/"
             className="flex items-center gap-2 text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent transition-opacity dark:from-blue-400 dark:to-indigo-400 hover:no-underline"
           >
@@ -53,7 +52,6 @@ const Navbar = () => {
           {menuItems.map((item) => (
             <Link
               key={item.href}
-              as={NextLink}
               href={item.href}
               className="text-sm font-semibold text-zinc-600 hover:text-blue-600 transition-colors dark:text-zinc-400 dark:hover:text-blue-400"
             >
@@ -65,36 +63,35 @@ const Navbar = () => {
         {/* Right: Auth Actions (Desktop) */}
         <div className="hidden md:flex items-center gap-4">
           <Link
-            as={NextLink}
             href="/login"
             className="text-sm font-semibold text-zinc-600 hover:text-blue-600 transition-colors dark:text-zinc-100 dark:hover:text-blue-400 hover:no-underline"
           >
             Login
           </Link>
-          <Button
-            as={NextLink}
-            href="/register"
-            color="primary"
-            variant="solid"
-            className="font-semibold shadow-sm transition-all dark:hover:text-blue-400"
-          >
-            Register
-          </Button>
+          <Link href="/register">
+            <Button
+              color="primary"
+              variant="solid"
+              className="font-semibold shadow-sm dark:hover:text-blue-400 transition-all"
+            >
+              Register
+            </Button>
+          </Link>
         </div>
 
         {/* Mobile Action (when menu is closed) */}
         <div className="flex md:hidden items-center gap-2">
           {!isOpen && (
-            <Button
-              as={NextLink}
-              href="/register"
-              color="primary"
-              variant="solid"
-              size="sm"
-              className="font-semibold"
-            >
-              Register
-            </Button>
+            <Link href="/register">
+              <Button
+                color="primary"
+                variant="solid"
+                size="sm"
+                className="font-semibold"
+              >
+                Register
+              </Button>
+            </Link>
           )}
         </div>
 
@@ -107,7 +104,6 @@ const Navbar = () => {
             {menuItems.map((item) => (
               <Link
                 key={item.href}
-                as={NextLink}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
                 className="block py-2 text-base font-medium text-zinc-600 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400"
@@ -119,23 +115,21 @@ const Navbar = () => {
 
           <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 flex flex-col gap-3">
             <Link
-              as={NextLink}
               href="/login"
               onClick={() => setIsOpen(false)}
               className="flex justify-center w-full py-2 text-center text-base font-medium text-zinc-600 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400 hover:no-underline"
             >
               Login
             </Link>
-            <Button
-              as={NextLink}
-              href="/register"
-              onClick={() => setIsOpen(false)}
-              color="primary"
-              variant="solid"
-              className="w-full font-semibold"
-            >
-              Register
-            </Button>
+            <Link href="/register" onClick={() => setIsOpen(false)} className="w-full">
+              <Button
+                color="primary"
+                variant="solid"
+                className="w-full font-semibold"
+              >
+                Register
+              </Button>
+            </Link>
           </div>
         </div>
       )}
