@@ -32,8 +32,11 @@ export function DashboardSidebar() {
     
 
     <Drawer>
-      <Button className="lg:hidden" variant="secondary">
-        <LayoutSideContentRight />
+      <Button 
+        className="lg:hidden fixed top-6 left-4 z-50 min-w-10 w-10 h-10 p-0  rounded-xl bg-zinc-900/80 border border-zinc-800 text-zinc-300 backdrop-blur-md transition-all shadow-lg shadow-black/40" 
+        variant="secondary"
+      >
+        <LayoutSideContentRight className="w-5 h-5" />
       </Button>
       <Drawer.Backdrop>
         <Drawer.Content placement="left">
