@@ -35,7 +35,7 @@ const Navbar = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-zinc-200/50 bg-white/80 backdrop-blur-md dark:border-zinc-800/50 dark:bg-zinc-950/80">
+    <header className="sticky top-0 z-50 w-full border-b border-zinc-200/50 py-3 bg-white/80 backdrop-blur-md dark:border-zinc-600/50 dark:bg-zinc-950/80">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
         {/* Left: Brand/Logo & Hamburger toggle on mobile */}
@@ -60,7 +60,7 @@ const Navbar = () => {
 
           {/* Logo */}
           <div
-            className="flex items-center gap-2 text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent transition-opacity dark:from-blue-400 dark:to-indigo-400 hover:no-underline"
+            className="flex items-center gap-2 text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent transition-opacity dark:from-blue-400 dark:to-indigo-400 hover:no-underline"
           >
             StartupForge
           </div>
@@ -91,7 +91,7 @@ const Navbar = () => {
                   <img
                     src={user.image || "https://i.ibb.co.com/xqykWXq5/avatar-15.png"}
                     alt={user.name || "User"}
-                    className="h-9 w-9 rounded-full object-cover border border-zinc-200 dark:border-zinc-800"
+                    className="h-11 w-11 rounded-full object-cover border border-zinc-200 dark:border-zinc-800"
                     referrerPolicy="no-referrer"
                     onError={(e) => {
                       e.target.onerror = null;
@@ -184,7 +184,7 @@ const Navbar = () => {
                     <img
                       src={user.image || "https://i.ibb.co.com/xqykWXq5/avatar-15.png"}
                       alt={user.name || "User"}
-                      className="h-8 w-8 rounded-full object-cover border border-zinc-200 dark:border-zinc-800"
+                      className="h-10 w-10 rounded-full object-cover border border-zinc-200 dark:border-zinc-800"
                       referrerPolicy="no-referrer"
                       onError={(e) => {
                         e.target.onerror = null;
