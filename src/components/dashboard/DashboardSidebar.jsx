@@ -7,7 +7,7 @@ export function DashboardSidebar() {
     {icon: House, label: "Home", href: "/dashboard/founder"},
     {icon: Bell, label: "My Startup", href: "/dashboard/founder/startup/new"},
     {icon: Envelope, label: "Manage Startup", href: "/dashboard/founder/startup"},
-    {icon: Person, label: "Add Opportunity", href:"/dashboard/founder/opportunity/new"},
+    {icon: Person, label: "Add Opportunity", href:"/dashboard/founder/add-opportunity"},
     {icon: Gear, label: "Manage Opportunities", href: "/dashboard/founder/opportunity"},
     {icon: Magnifier, label: "Applications", href: "/dashboard/founder/applications"},
   ];
