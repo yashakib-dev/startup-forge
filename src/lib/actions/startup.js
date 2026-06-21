@@ -31,3 +31,34 @@ export const deleteStartup = async (id) => {
     });
     return res.json();
 }
+
+export const getStartupById = async (id) => {
+    try {
+        const res = await fetch(`${baseUrl}/api/startups/${id}`, {
+            cache: 'no-store'
+        });
+        if (!res.ok) {
+            return { error: "Failed to fetch startup details" };
+        }
+        return res.json();
+    } catch (error) {
+        console.error("Error fetching startup by ID:", error);
+        return { error: error.message };
+    }
+}
+
+export const getStartups = async () => {
+    try {
+        const res = await fetch(`${baseUrl}/api/startups`, {
+            cache: 'no-store'
+        });
+        if (!res.ok) {
+            return { error: "Failed to fetch startups" };
+        }
+        return res.json();
+    } catch (error) {
+        console.error("Error fetching startups:", error);
+        return { error: error.message };
+    }
+}
+
