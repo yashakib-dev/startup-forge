@@ -1,10 +1,34 @@
+"use client";
+
 import { getStartupIdea } from '@/lib/api/ideas';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa';
+import UpdateStartupIdea from '@/components/dashboard/founder-dashboard/UpdateStartupIdea';
+import DeleteStartupIdea from '@/components/dashboard/founder-dashboard/DeleteStartupIdea';
 
-const StartupPage = async () => {
-  const startups = await getStartupIdea();
+const StartupPage = () => {
+  const [startups, setStartups] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedStartup, setSelectedStartup] = useState(null);
+  const [isUpdateOpen, setIsUpdateOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+
+  const fetchStartups = async () => {
+    try {
+      setLoading(true);
+      const data = await getStartupIdea();
+      setStartups(data || []);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchStartups();
+  }, []);
 
   return (
     <div className="p-6 max-w-7xl mx-auto space-y-6">
@@ -29,7 +53,14 @@ const StartupPage = async () => {
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-800/50">
-              {startups && startups.length > 0 ? (
+              {loading ? (
+                <tr>
+                  <td colSpan="5" className="py-8 text-center text-zinc-500 text-sm">
+                    <span className="inline-block w-5 h-5 border-2 border-zinc-500/30 border-t-zinc-400 rounded-full animate-spin mr-2 align-middle" />
+                    Loading startups...
+                  </td>
+                </tr>
+              ) : startups && startups.length > 0 ? (
                 startups.map((startup) => (
                   <tr key={startup._id || startup.id} className="group hover:bg-zinc-800/10 transition-colors duration-200">
                     <td className="py-4 px-6">
@@ -60,11 +91,17 @@ const StartupPage = async () => {
                     </td>
                     <td className="py-4 px-6">
                       <div className="flex items-center justify-center gap-3">
-                        <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg text-blue-400 bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-all cursor-pointer">
+                        <button 
+                          onClick={() => { setSelectedStartup(startup); setIsUpdateOpen(true); }}
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg text-blue-400 bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-all cursor-pointer"
+                        >
                           <FaEdit className="size-3" />
                           Update
                         </button>
-                        <button className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg text-rose-400 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500 hover:text-white transition-all cursor-pointer">
+                        <button 
+                          onClick={() => { setSelectedStartup(startup); setIsDeleteOpen(true); }}
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg text-rose-400 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500 hover:text-white transition-all cursor-pointer"
+                        >
                           <FaTrash className="size-3" />
                           Delete
                         </button>
@@ -85,7 +122,12 @@ const StartupPage = async () => {
 
         {/* Card view for mobile screens */}
         <div className="grid grid-cols-1 gap-4 md:hidden p-4">
-          {startups && startups.length > 0 ? (
+          {loading ? (
+            <div className="py-8 text-center text-zinc-500 text-sm">
+              <span className="inline-block w-5 h-5 border-2 border-zinc-500/30 border-t-zinc-400 rounded-full animate-spin mr-2 align-middle" />
+              Loading startups...
+            </div>
+          ) : startups && startups.length > 0 ? (
             startups.map((startup) => (
               <div key={startup._id || startup.id} className="p-4 rounded-xl border border-zinc-800/80 bg-zinc-900/60 flex flex-col gap-4">
                 <div className="flex items-center gap-3">
@@ -113,11 +155,17 @@ const StartupPage = async () => {
                   </div>
                 </div>
                 <div className="flex gap-2 mt-2 pt-3 border-t border-zinc-800/50">
-                  <button className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg text-blue-400 bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-all cursor-pointer">
+                  <button 
+                    onClick={() => { setSelectedStartup(startup); setIsUpdateOpen(true); }}
+                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg text-blue-400 bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500 hover:text-white transition-all cursor-pointer"
+                  >
                     <FaEdit className="size-3" />
                     Update
                   </button>
-                  <button className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg text-rose-400 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500 hover:text-white transition-all cursor-pointer">
+                  <button 
+                    onClick={() => { setSelectedStartup(startup); setIsDeleteOpen(true); }}
+                    className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-semibold rounded-lg text-rose-400 bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500 hover:text-white transition-all cursor-pointer"
+                  >
                     <FaTrash className="size-3" />
                     Delete
                   </button>
@@ -131,6 +179,20 @@ const StartupPage = async () => {
           )}
         </div>
       </div>
+
+      {/* Modals */}
+      <UpdateStartupIdea 
+        isOpen={isUpdateOpen} 
+        onClose={() => { setIsUpdateOpen(false); setSelectedStartup(null); }} 
+        startup={selectedStartup} 
+        onUpdated={fetchStartups}
+      />
+      <DeleteStartupIdea 
+        isOpen={isDeleteOpen} 
+        onClose={() => { setIsDeleteOpen(false); setSelectedStartup(null); }} 
+        startup={selectedStartup} 
+        onDeleted={fetchStartups}
+      />
     </div>
   );
 }
