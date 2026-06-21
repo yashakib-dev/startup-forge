@@ -1,6 +1,6 @@
 "use client";
 
-import StatCard from "@/components/dashboard/StatCard";
+import StatCard from "@/components/dashboard/founder-dashboard/StatCard";
 import { Rocket, FileText, Persons } from "@gravity-ui/icons";
 import { useSession } from "@/lib/auth-client";
 import { Spinner } from "@heroui/react";
