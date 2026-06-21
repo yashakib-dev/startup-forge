@@ -6,6 +6,7 @@ import { Button } from "@heroui/react";
 import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { FiUser, FiLogOut } from "react-icons/fi";
+import { RxDashboard } from "react-icons/rx"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,15 @@ const Navbar = () => {
   const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  // console.log(user);
+  console.log(user);
+  
+  const getDashboardHref = (role) => {
+    if (role === "founder") return "/dashboard/founder";
+    if (role === "collaborator") return "/dashboard/collaborator";
+    if (role === "admin") return "/dashboard/admin";
+    return "/dashboard";
+  };
+  const dashboardHref = getDashboardHref(user?.role);
 
 
   const handleLogout = async () => {
@@ -136,6 +145,14 @@ const Navbar = () => {
                       <FiUser className="text-zinc-500 text-base" />
                       Profile
                     </Link>
+                    <Link
+                      href={dashboardHref}
+                      onClick={() => setIsDropdownOpen(false)}
+                      className="flex items-center gap-2 px-3 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 rounded-lg hover:no-underline transition-colors"
+                    >
+                      <RxDashboard className="text-zinc-500 text-base" />
+                      Dashboard
+                    </Link>
                     <button
                       onClick={() => {
                         setIsDropdownOpen(false);
@@ -228,6 +245,14 @@ const Navbar = () => {
                       >
                         <FiUser className="text-zinc-500 text-base" />
                         Profile
+                      </Link>
+                      <Link
+                        href={dashboardHref}
+                        onClick={() => setIsDropdownOpen(false)}
+                        className="flex items-center gap-2 px-3 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 rounded-lg hover:no-underline transition-colors"
+                      >
+                        <RxDashboard className="text-zinc-500 text-base" />
+                        Dashboard
                       </Link>
                       <button
                         onClick={() => {

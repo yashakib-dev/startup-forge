@@ -62,6 +62,8 @@ const Register = () => {
     });
     if (res) {
       toast.success("Registration successful!");
+      console.log(res);
+      
       redirect("/");
     }
     if (error) {
@@ -160,11 +162,11 @@ const Register = () => {
               <div className="grid grid-cols-2 gap-3 mt-1">
                 {[{ value: "founder", label: "Founder", accent: "peer-checked:border-blue-500/60 peer-checked:bg-blue-950/20" },
                 { value: "collaborator", label: "Collaborator", accent: "peer-checked:border-indigo-500/60 peer-checked:bg-indigo-950/20" }
-                ].map((r) => (
-                  <label key={r.value} className="relative flex items-center justify-center rounded-xl cursor-pointer">
-                    <input type="radio" value={r.value} className="peer sr-only" {...register("role", { required: "Select a role" })} />
-                    <div className={`absolute inset-0 rounded-xl border border-zinc-700/80 bg-zinc-900/50 ${r.accent} transition-all duration-300`} />
-                    <span className="relative text-sm font-medium text-zinc-400 peer-checked:text-white py-3 transition-colors">{r.label}</span>
+                ].map((role) => (
+                  <label key={role.value} className="relative flex items-center justify-center rounded-xl cursor-pointer">
+                    <input type="radio" value={role.value} className="peer sr-only" {...register("role", { required: "Select a role" })} />
+                    <div className={`absolute inset-0 rounded-xl border border-zinc-700/80 bg-zinc-900/50 ${role.accent} transition-all duration-300`} />
+                    <span className="relative text-sm font-medium text-zinc-400 peer-checked:text-white py-3 transition-colors">{role.label}</span>
                   </label>
                 ))}
               </div>
