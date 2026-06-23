@@ -1,6 +1,6 @@
 "use client";
 
-import { Gear, House, LayoutSideContentRight, Envelope } from "@gravity-ui/icons";
+import { Gear, House, LayoutSideContentRight, Envelope, PersonGear } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,6 +10,7 @@ export function CollaboratorDashboardSidebar() {
 
   const navItems = [
     { icon: House, label: "Home", href: "/dashboard/collaborator" },
+    { icon: PersonGear, label: "My Profile", href: "/dashboard/collaborator/collaborator-profile" },
     { icon: Envelope, label: "My Applications", href: "/dashboard/collaborator/my-applications" },
     { icon: Gear, label: "Browse Opportunities", href: "/dashboard/collaborator/opportunities" },
 

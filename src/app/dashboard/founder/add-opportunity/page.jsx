@@ -4,17 +4,17 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
-import { 
-  FaBriefcase, 
-  FaCode, 
-  FaMapMarkerAlt, 
-  FaClock, 
-  FaCalendarAlt, 
-  FaArrowLeft, 
-  FaPlus, 
-  FaTimes, 
-  FaCheck, 
-  FaSpinner 
+import {
+  FaBriefcase,
+  FaCode,
+  FaMapMarkerAlt,
+  FaClock,
+  FaCalendarAlt,
+  FaArrowLeft,
+  FaPlus,
+  FaTimes,
+  FaCheck,
+  FaSpinner
 } from 'react-icons/fa';
 import { createOpportunity } from '@/lib/actions/opportunity';
 
@@ -76,9 +76,9 @@ const AddOpportunityPage = () => {
     <div className="min-h-[calc(100vh-4rem)] bg-zinc-950 text-zinc-100 flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-xl mx-auto w-full space-y-8">
         <div className="flex items-center gap-4">
-          <button 
-            type="button" 
-            onClick={() => router.back()} 
+          <button
+            type="button"
+            onClick={() => router.back()}
             className="p-3 rounded-xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-800/80 text-zinc-400 hover:text-white transition-all cursor-pointer"
           >
             <FaArrowLeft className="w-5 h-5" />
@@ -96,11 +96,11 @@ const AddOpportunityPage = () => {
               <FaBriefcase className="text-indigo-400" />
               Role Title
             </label>
-            <input 
-              {...register("title", { required: "Role title is required" })} 
-              type="text" 
-              placeholder="e.g. Lead Frontend Engineer" 
-              className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 transition-all" 
+            <input
+              {...register("title", { required: "Role title is required" })}
+              type="text"
+              placeholder="e.g. Lead Frontend Engineer"
+              className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 transition-all"
             />
             {errors.title && <p className="text-xs text-red-400">{errors.title.message}</p>}
           </div>
@@ -112,14 +112,14 @@ const AddOpportunityPage = () => {
               Required Skills
             </label>
             <div className="flex gap-2">
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={skillInput}
                 onChange={(e) => setSkillInput(e.target.value)}
-                placeholder="e.g. React, Node.js, Python" 
-                className="flex-1 px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 transition-all" 
+                placeholder="e.g. React, Node.js, Python"
+                className="flex-1 px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 transition-all"
               />
-              <button 
+              <button
                 onClick={handleAddSkill}
                 className="px-4 py-2.5 bg-zinc-800 border border-zinc-700 hover:border-zinc-650 hover:bg-zinc-750 text-white rounded-xl text-sm font-semibold flex items-center gap-1.5 transition-all cursor-pointer"
               >
@@ -127,18 +127,18 @@ const AddOpportunityPage = () => {
                 Add
               </button>
             </div>
-            
+
             {/* Skills Tag List */}
             {skills.length > 0 && (
               <div className="flex flex-wrap gap-2 pt-1">
                 {skills.map((skill, index) => (
-                  <span 
-                    key={index} 
+                  <span
+                    key={index}
                     className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium bg-zinc-800/80 text-zinc-200 border border-zinc-750"
                   >
                     {skill}
-                    <button 
-                      type="button" 
+                    <button
+                      type="button"
                       onClick={() => handleRemoveSkill(skill)}
                       className="text-zinc-500 hover:text-red-400 transition-colors"
                     >
@@ -158,8 +158,8 @@ const AddOpportunityPage = () => {
                 <FaMapMarkerAlt className="text-indigo-400" />
                 Work Type
               </label>
-              <select 
-                {...register("workType", { required: "Work type is required" })} 
+              <select
+                {...register("workType", { required: "Work type is required" })}
                 className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 transition-all"
               >
                 <option value="">Select Work Type</option>
@@ -176,8 +176,8 @@ const AddOpportunityPage = () => {
                 <FaClock className="text-indigo-400" />
                 Commitment Level
               </label>
-              <select 
-                {...register("commitment", { required: "Commitment is required" })} 
+              <select
+                {...register("commitment", { required: "Commitment is required" })}
                 className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 transition-all"
               >
                 <option value="">Select Commitment</option>
@@ -195,18 +195,18 @@ const AddOpportunityPage = () => {
               <FaCalendarAlt className="text-indigo-400" />
               Deadline
             </label>
-            <input 
-              {...register("deadline", { required: "Deadline date is required" })} 
-              type="date" 
-              className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 transition-all" 
+            <input
+              {...register("deadline", { required: "Deadline date is required" })}
+              type="date"
+              className="w-full px-4 py-2.5 bg-zinc-950 border border-zinc-800 rounded-xl text-white text-sm focus:outline-none focus:border-indigo-500 transition-all"
             />
             {errors.deadline && <p className="text-xs text-red-400">{errors.deadline.message}</p>}
           </div>
 
           {/* Submit Button */}
-          <button 
-            type="submit" 
-            disabled={loading} 
+          <button
+            type="submit"
+            disabled={loading}
             className="w-full text-white font-semibold py-3 px-4 rounded-xl hover:opacity-95 transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 bg-gradient-to-r from-blue-600 to-indigo-600 shadow-[0_0_20px_rgba(59,130,246,0.3)]"
           >
             {loading ? (

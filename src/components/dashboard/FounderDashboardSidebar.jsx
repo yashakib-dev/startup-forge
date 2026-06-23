@@ -1,6 +1,6 @@
 "use client";
 
-import { Briefcase, PersonGear, Gear, House, LayoutSideContentRight, Envelope, CirclePlus } from "@gravity-ui/icons";
+import { Briefcase, PersonGear, Gear, House, LayoutSideContentRight, Envelope, CirclePlus, Person } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,6 +10,7 @@ export function FounderDashboardSidebar() {
 
   const navItems = [
     { icon: House, label: "Home", href: "/dashboard/founder" },
+    { icon: Person, label: "My Profile", href: "/dashboard/founder/founder-profile" },
     { icon: Briefcase, label: "My Startup", href: "/dashboard/founder/startup/new" },
     { icon: PersonGear, label: "Manage Startup", href: "/dashboard/founder/startup" },
     { icon: CirclePlus, label: "Add Opportunity", href: "/dashboard/founder/add-opportunity" },
