@@ -29,3 +29,25 @@ export const getFounderStats = async (founderId) => {
         return { totalOpportunities: 0, totalApplications: 0, accepted: 0, pending: 0, rejected: 0 };
     }
 };
+
+export const getCollaboratorStats = async (collaboratorId) => {
+    try {
+        const appRes = await fetch(`${baseUrl}/api/applications?applicantId=${collaboratorId}`, { cache: 'no-store' });
+        const applications = appRes.ok ? await appRes.json() : [];
+
+        const totalApplications = Array.isArray(applications) ? applications.length : 0;
+        const accepted = Array.isArray(applications) ? applications.filter(a => a.status === 'accepted' || a.status === 'Approved').length : 0;
+        const pending = Array.isArray(applications) ? applications.filter(a => a.status === 'pending' || a.status === 'Pending').length : 0;
+        const rejected = Array.isArray(applications) ? applications.filter(a => a.status === 'rejected' || a.status === 'Rejected').length : 0;
+
+        return {
+            totalApplications,
+            accepted,
+            pending,
+            rejected,
+        };
+    } catch {
+        return { totalApplications: 0, accepted: 0, pending: 0, rejected: 0 };
+    }
+};
+

@@ -2,18 +2,18 @@
 
 import React, { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import {getApplications} from '@/lib/actions/application';
-import {ApplicationsList} from '@/components/dashboard/founder-dashboard/ApplicationsList';
+import { getApplications } from '@/lib/actions/application';
+import { ApplicationsList } from '@/components/dashboard/founder-dashboard/ApplicationsList';
+import { useSession } from '@/lib/auth-client';
+import { Spinner } from '@heroui/react';
 
 export default function ApplicationsPage() {
+    const { data: session, isPending } = useSession();
     const [applications, setApplications] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        loadApplications();
-    }, []);
-
     const loadApplications = async () => {
+        if (!session?.user?.id) return;
         setLoading(true);
         try {
             const res = await getApplications(); 
@@ -26,15 +26,41 @@ export default function ApplicationsPage() {
         }
     };
 
+    useEffect(() => {
+        if (!isPending && session?.user?.id) {
+            loadApplications();
+        }
+    }, [session, isPending]);
+
+    if (isPending) {
+        return (
+            <div className="flex items-center justify-center min-h-[50vh]">
+                <Spinner size="lg" />
+            </div>
+        );
+    }
+
     return (
-        <div className="p-4">
-            <h2 className="text-2xl font-bold text-white mb-4">My Applications</h2>
+        <div className="p-6 md:p-8 space-y-6 bg-zinc-950 min-h-screen text-white">
+            <h2 className="text-3xl font-extrabold tracking-tight">
+                Received{" "}
+                <span className="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">
+                    Applications
+                </span>
+            </h2>
+            <p className="text-zinc-400 text-sm">
+                Manage applications submitted by collaborators for your startup opportunities.
+            </p>
             {loading ? (
-                <div className="text-center py-8"><div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div></div>
+                <div className="flex items-center justify-center py-12">
+                    <Spinner size="md" />
+                </div>
             ) : applications.length === 0 ? (
-                <p className="text-zinc-400">No applications found</p>
+                <div className="text-center py-12 border border-zinc-800 rounded-2xl bg-zinc-900/10">
+                    <p className="text-zinc-400">No applications found</p>
+                </div>
             ) : (
-                <ApplicationsList applications={applications} />
+                <ApplicationsList applications={applications} onUpdate={loadApplications} />
             )}
         </div>
     );

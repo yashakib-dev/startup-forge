@@ -35,3 +35,19 @@ export const deleteOpportunity = async (id) => {
     });
     return res.json();
 }
+
+export const getOpportunityById = async (id) => {
+    try {
+        const res = await fetch(`${baseUrl}/api/opportunities/${id}`, {
+            cache: 'no-store'
+        });
+        if (!res.ok) {
+            return { error: "Failed to fetch opportunity details" };
+        }
+        return res.json();
+    } catch (error) {
+        console.error("Error fetching opportunity by ID:", error);
+        return { error: error.message };
+    }
+}
+

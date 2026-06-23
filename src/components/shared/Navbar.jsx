@@ -22,7 +22,7 @@ const Navbar = () => {
   const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user);
+  // console.log(user);
   
   const getDashboardHref = (role) => {
     if (role === "founder") return "/dashboard/founder";

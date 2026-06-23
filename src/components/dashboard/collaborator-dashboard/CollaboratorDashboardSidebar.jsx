@@ -1,6 +1,6 @@
 "use client";
 
-import { Briefcase, PersonGear, Gear, House, LayoutSideContentRight, Envelope, CirclePlus } from "@gravity-ui/icons";
+import { Gear, House, LayoutSideContentRight, Envelope } from "@gravity-ui/icons";
 import { Button, Drawer } from "@heroui/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -10,11 +10,9 @@ export function CollaboratorDashboardSidebar() {
 
   const navItems = [
     { icon: House, label: "Home", href: "/dashboard/collaborator" },
-    { icon: Briefcase, label: "My Collaborators", href: "/dashboard/collaborator/collaborators/new" },
-    { icon: PersonGear, label: "Manage Collaborators", href: "/dashboard/collaborator/collaborators" },
-    { icon: CirclePlus, label: "Add Opportunity", href: "/dashboard/collaborator/add-opportunity" },
-    { icon: Gear, label: "Manage Opportunities", href: "/dashboard/collaborator/opportunity" },
-    { icon: Envelope, label: "Applications", href: "/dashboard/collaborator/applications" },
+    { icon: Envelope, label: "My Applications", href: "/dashboard/collaborator/my-applications" },
+    { icon: Gear, label: "Browse Opportunities", href: "/dashboard/collaborator/opportunities" },
+
   ];
 
   const navContent = (
@@ -24,11 +22,10 @@ export function CollaboratorDashboardSidebar() {
         return (
           <Link
             key={item.label}
-            className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all ${
-              isActive 
-                ? "bg-blue-600/10 text-blue-400 border border-blue-500/20 font-semibold" 
+            className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all ${isActive
+                ? "bg-blue-600/10 text-blue-400 border border-blue-500/20 font-semibold"
                 : "text-zinc-400 hover:bg-zinc-800/40 hover:text-white"
-            }`}
+              }`}
             href={item.href}
           >
             <item.icon className={`size-5 transition-colors ${isActive ? "text-blue-400" : "text-zinc-500"}`} />
