@@ -3,21 +3,23 @@
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const getApplications = async (params = {}) => {
-    const query = new URLSearchParams(params).toString();
-    const url = `${baseUrl}/api/applications${query ? `?${query}` : ''}`;
-    const res = await fetch(url, {
-        cache: 'no-store'
-    });
-    return res.json();
+    try {
+        const query = new URLSearchParams(params).toString();
+        const url = `${baseUrl}/api/applications${query ? `?${query}` : ''}`;
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) return [];
+        return res.json();
+    } catch (error) {
+        console.error("Error fetching applications:", error);
+        return [];
+    }
 }
 
 export const createApplication = async (applicationData) => {
     try {
         const res = await fetch(`${baseUrl}/api/applications`, {
             method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(applicationData),
         });
         return res.json();
@@ -32,9 +34,7 @@ export const updateApplication = async (id, applicationData) => {
         const { _id, id: rawId, ...cleanData } = applicationData;
         const res = await fetch(`${baseUrl}/api/applications/${id}`, {
             method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify(cleanData),
         });
         return res.json();
@@ -43,5 +43,3 @@ export const updateApplication = async (id, applicationData) => {
         return { error: error.message };
     }
 }
-
-

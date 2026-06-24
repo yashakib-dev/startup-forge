@@ -3,7 +3,7 @@
 import { getStartupIdea } from '@/lib/api/ideas';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { FaEdit, FaPlus, FaTrash } from 'react-icons/fa';
+import { FaEdit, FaPlus, FaTrash, FaClock, FaCheck } from 'react-icons/fa';
 import UpdateStartupIdea from '@/components/dashboard/founder-dashboard/UpdateStartupIdea';
 import DeleteStartupIdea from '@/components/dashboard/founder-dashboard/DeleteStartupIdea';
 
@@ -49,13 +49,14 @@ const StartupPage = () => {
                 <th className="py-4 px-6">Startup Name</th>
                 <th className="py-4 px-6">Industry</th>
                 <th className="py-4 px-6">Funding Stage</th>
+                <th className="py-4 px-6">Status</th>
                 <th className="py-4 px-6 text-center">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-zinc-800/50">
               {loading ? (
                 <tr>
-                  <td colSpan="5" className="py-8 text-center text-zinc-500 text-sm">
+                  <td colSpan="6" className="py-8 text-center text-zinc-500 text-sm">
                     <span className="inline-block w-5 h-5 border-2 border-zinc-500/30 border-t-zinc-400 rounded-full animate-spin mr-2 align-middle" />
                     Loading startups...
                   </td>
@@ -89,6 +90,23 @@ const StartupPage = () => {
                         {startup.fundingStage || 'N/A'}
                       </span>
                     </td>
+                    <td className="py-4 px-6 text-zinc-300 text-sm">
+                      <span className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold ${
+                        startup.status === 'approved'
+                          ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-800/40'
+                          : 'bg-amber-950/60 text-amber-500 border border-amber-800/40'
+                      }`}>
+                        {startup.status === 'approved' ? (
+                          <>
+                            <FaCheck className="size-2.5" /> Approved
+                          </>
+                        ) : (
+                          <>
+                            <FaClock className="size-2.5 animate-pulse" /> Pending Approval
+                          </>
+                        )}
+                      </span>
+                    </td>
                     <td className="py-4 px-6">
                       <div className="flex items-center justify-center gap-3">
                         <button 
@@ -111,7 +129,7 @@ const StartupPage = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="py-8 text-center text-zinc-500 text-sm">
+                  <td colSpan="6" className="py-8 text-center text-zinc-500 text-sm">
                     No startups found.
                   </td>
                 </tr>
@@ -143,7 +161,21 @@ const StartupPage = () => {
                     </div>
                   )}
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-white text-base truncate">{startup.name}</h3>
+                    <div className="flex items-center justify-between gap-2">
+                      <h3 className="font-semibold text-white text-base truncate">{startup.name}</h3>
+                      <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold ${
+                        startup.status === 'approved'
+                          ? 'bg-emerald-950/60 text-emerald-400 border border-emerald-800/40'
+                          : 'bg-amber-950/60 text-amber-500 border border-amber-800/40'
+                      }`}>
+                        {startup.status === 'approved' ? (
+                          <FaCheck className="size-2" />
+                        ) : (
+                          <FaClock className="size-2 animate-pulse" />
+                        )}
+                        {startup.status === 'approved' ? 'Approved' : 'Pending'}
+                      </span>
+                    </div>
                     <div className="flex flex-wrap gap-2 mt-1.5">
                       <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-zinc-800 text-zinc-300 border border-zinc-700/50">
                         {startup.industry || 'N/A'}

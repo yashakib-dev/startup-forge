@@ -15,7 +15,7 @@ const Navbar = () => {
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "Browse Startups", href: "/startups" },
-    { name: "Startup Details", href: "/startup-details" },
+    { name: "Admin Dashboard", href: "/dashboard/admin"},
     { name: "Browse Opportunities", href: "/opportunities" },
   ];
 
@@ -137,14 +137,7 @@ const Navbar = () => {
                     </div>
 
                     {/* Actions */}
-                    <Link
-                      href="/profile"
-                      onClick={() => setIsDropdownOpen(false)}
-                      className="flex items-center gap-2 px-3 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 rounded-lg hover:no-underline transition-colors"
-                    >
-                      <FiUser className="text-zinc-500 text-base" />
-                      Profile
-                    </Link>
+
                     <Link
                       href={dashboardHref}
                       onClick={() => setIsDropdownOpen(false)}
@@ -238,14 +231,7 @@ const Navbar = () => {
                       </div>
 
                       {/* Actions */}
-                      <Link
-                        href="/profile"
-                        onClick={() => setIsDropdownOpen(false)}
-                        className="flex items-center gap-2 px-3 py-2 text-sm text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/60 rounded-lg hover:no-underline transition-colors"
-                      >
-                        <FiUser className="text-zinc-500 text-base" />
-                        Profile
-                      </Link>
+                    
                       <Link
                         href={dashboardHref}
                         onClick={() => setIsDropdownOpen(false)}

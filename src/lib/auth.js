@@ -22,6 +22,9 @@ export const auth = betterAuth({
       },
     },
   },
+  plan: {
+    default: "founder_free"
+  },
 
   database: mongodbAdapter(db, {
     client,

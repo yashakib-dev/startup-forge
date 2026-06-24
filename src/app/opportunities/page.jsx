@@ -50,7 +50,7 @@ const OpportunitiesPage = () => {
                     /* Grid Layout */
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {opportunities.map((opportunity) => (
-                            <div 
+                            <div
                                 key={opportunity._id || opportunity.id}
                                 className="group flex flex-col justify-between bg-zinc-900/40 hover:bg-zinc-900/70 border border-zinc-800/80 hover:border-zinc-700/60 rounded-2xl p-6 transition-all duration-300 backdrop-blur-md hover:shadow-[0_8px_30px_rgb(0,0,0,0.12)]"
                             >
@@ -96,7 +96,7 @@ const OpportunitiesPage = () => {
                                         <PersonPlus className="w-3.5 h-3.5 text-zinc-400" />
                                         <span>Apply Now</span>
                                     </div>
-                                    <Link 
+                                    <Link
                                         href={`/opportunitie-details/${opportunity._id || opportunity.id}`}
                                         className="inline-flex items-center gap-1 text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors"
                                     >
@@ -112,4 +112,4 @@ const OpportunitiesPage = () => {
     );
 };
 
-export default OpportunitiesPage;
+export default OpportunitiesPage;

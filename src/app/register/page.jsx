@@ -53,12 +53,16 @@ const Register = () => {
     if (!data.image) { setError("image", { message: "Profile image is required" }); return; }
 
     const { email, name, image, password, role } = data;
+
+    const plan = role == "founder" ? "founder_free" : "";
+    
     const { data: res, error } = await authClient.signUp.email({
       name: name,
       email: email,
       password: password,
       image: image,
       role: role,
+      plan: plan,
     });
     if (res) {
       toast.success("Registration successful!");

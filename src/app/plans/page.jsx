@@ -26,7 +26,7 @@ const PricingPlansPage = () => {
                 {/* Pricing */}
                 <div className="py-2">
                     <span className="text-4xl font-extrabold text-white">$49.99</span>
-                    <span className="text-zinc-500 text-sm"> / month</span>
+                    <span className="text-zinc-500 text-sm"> / year</span>
                 </div>
 
                 {/* Features List */}
@@ -46,6 +46,7 @@ const PricingPlansPage = () => {
 
                 {/* Checkout Redirect Form */}
                 <form action="/api/checkout_sessions" method="POST" className="pt-2">
+                <input type="hidden" name="id" value="founder_free" />
                 <section>
                     <button
                         type="submit" role="link"

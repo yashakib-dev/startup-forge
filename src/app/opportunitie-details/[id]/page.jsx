@@ -8,7 +8,7 @@ import { useSession } from "@/lib/auth-client";
 import { ArrowLeft, Briefcase, Tag, Calendar, PersonGear, Rocket } from "@gravity-ui/icons";
 import { Spinner, Button } from "@heroui/react";
 import ApplicationForm from "@/components/ui/ApplicationForm";
-
+import { getPlanById } from "@/lib/api/plans";
 const OpportunityDetailsPage = () => {
     const { id } = useParams();
     const router = useRouter();
@@ -21,6 +21,20 @@ const OpportunityDetailsPage = () => {
     const [appliedSuccess, setAppliedSuccess] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
     const [showForm, setShowForm] = useState(false);
+    const [plan, setPlan] = useState(null);
+
+    useEffect(() => {
+        const fetchPlan = async () => {
+            if (session?.user?.plan) {
+                const planData = await getPlanById(session.user.plan);
+                setPlan(planData);
+            } else {
+                const planData = await getPlanById("founder_free");
+                setPlan(planData);
+            }
+        };
+        fetchPlan();
+    }, [session]);
 
     useEffect(() => {
         if (!id) return;
