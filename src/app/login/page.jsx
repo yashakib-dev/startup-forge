@@ -20,8 +20,53 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
-
       const { email, password } = data;
+
+      
+      if (email === "admin@startupforge.com" && password === "Admin1234") {
+        try {
+         
+          const { data: res, error } = await authClient.signIn.email({
+            email,
+            password,
+            rememberMe: true,
+            callbackURL: "/",
+          });
+          if (res) {
+            toast.success("Login successful (Admin)");
+            return;
+          }
+       
+          if (error) {
+            const { data: registerRes, error: registerErr } = await authClient.signUp.email({
+              email,
+              password,
+              name: "System Admin",
+              image: "https://i.ibb.co/5GzXkwq/admin.png",
+              role: "admin",
+            });
+            if (registerRes) {
+             
+              await authClient.signIn.email({
+                email,
+                password,
+                rememberMe: true,
+                callbackURL: "/",
+              });
+              toast.success("Login successful");
+              return;
+            }
+            if (registerErr) {
+              toast.error(registerErr.message || "Failed to create admin");
+              return;
+            }
+          }
+        } catch (e) {
+          toast.error("Failed handling admin logic");
+          return;
+        }
+      }
+
       const { data: res, error } = await authClient.signIn.email({
         email: email,
         password: password,
@@ -30,7 +75,6 @@ const Login = () => {
       });
       if (error) {
         console.log(error);
-        
         toast.error(error.message);
       }
       if (res) {
@@ -201,6 +245,13 @@ const Login = () => {
             <FcGoogle />
             Continue with Google
           </Button>
+
+         
+          <div className="mt-6 border border-zinc-800 bg-zinc-900/40 p-4 rounded-xl text-center space-y-1">
+            <p className="text-xs text-amber-400 font-bold uppercase tracking-wider">Admin Login Info</p>
+            <p className="text-xs text-zinc-400"><span className="text-zinc-300 font-medium">Email:</span> admin@startupforge.com</p>
+            <p className="text-xs text-zinc-400"><span className="text-zinc-300 font-medium">Password:</span> Admin1234</p>
+          </div>
 
           {/* Footer */}
           <p className="mt-7 text-center text-sm text-zinc-500">
