@@ -1,5 +1,8 @@
 "use server"
 
+import { headers } from "next/headers";
+import { auth } from "../auth";
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const createOpportunity = async (opportunityData) => {
@@ -16,14 +19,32 @@ export const createOpportunity = async (opportunityData) => {
     }
 }
 
-export const getOpportunities = async () => {
+export const getOpportunities = async (filters = {}) => {
     try {
-        const res = await fetch(`${baseUrl}/api/opportunities`, { cache: 'no-store' });
-        if (!res.ok) return [];
-        return res.json();
+        const { search = '', commitment = '', page = 1, limit = 9 } = filters;
+        const params = new URLSearchParams();
+        if (search) params.append('search', search);
+        if (commitment) params.append('commitment', commitment);
+        params.append('page', page);
+        params.append('limit', limit);
+        
+        const queryString = params.toString();
+        const url = `${baseUrl}/api/opportunities?${queryString}`;
+        
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) return { data: [], total: 0 };
+        
+        const response = await res.json();
+        
+        // Handle both paginated format { data, total } and array format
+        if (Array.isArray(response)) {
+            return { data: response, total: response.length };
+        }
+        
+        return response;
     } catch (error) {
         console.error("Error fetching opportunities:", error);
-        return [];
+        return { data: [], total: 0 };
     }
 }
 
@@ -56,7 +77,18 @@ export const deleteOpportunity = async (id) => {
 
 export const getOpportunityById = async (id) => {
     try {
-        const res = await fetch(`${baseUrl}/api/opportunities/${id}`, { cache: 'no-store' });
+        const {token} = await auth.api.getToken({
+            headers: await headers()
+        })
+        console.log(token);
+        
+        const res = await fetch(`${baseUrl}/api/opportunities/${id}`, 
+            {
+                 cache: 'no-store', 
+                 headers: {
+                    "Authorization": `Bearer ${token}`
+                 }
+            });
         if (!res.ok) return { error: "Failed to fetch opportunity details" };
         return res.json();
     } catch (error) {

@@ -36,6 +36,8 @@ const FounderDashboardPage = () => {
     const [stats, setStats] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    
+
     useEffect(() => {
         const fetchStats = async () => {
             if (!session?.user?.id) return;
