@@ -45,10 +45,9 @@ const AddOpportunityPage = () => {
           getPremiumStatus(session.user.id),
         ]);
 
-        if (Array.isArray(oppsData)) {
-          const mine = oppsData.filter(op => op.founderId === session.user.id);
-          setOppCount(mine.length);
-        }
+        const opportunityList = Array.isArray(oppsData) ? oppsData : oppsData?.data || [];
+        const mine = opportunityList.filter(op => op.founderId === session.user.id);
+        setOppCount(mine.length);
 
         const userIsPremium = premiumData?.isPremium || false;
         setIsPremium(userIsPremium);

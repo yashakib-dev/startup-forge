@@ -75,6 +75,13 @@ const Register = () => {
     }
   };
 
+    const handleGoogleLogin = async () => {
+    const {data} = await authClient.signIn.social({
+      provider: "google",
+    });
+
+  };
+
   const inputCls = "w-full bg-transparent text-white text-sm placeholder:text-zinc-600 outline-none";
 
   return (
@@ -189,7 +196,7 @@ const Register = () => {
             <div className="relative flex justify-center"><span className="bg-zinc-950 px-3 text-sm text-zinc-500">OR</span></div>
           </div>
 
-          <Button variant="bordered" onPress={() => { toast.success("Redirecting to Google..."); }}
+          <Button variant="bordered" onClick={handleGoogleLogin}
             className="w-full border-zinc-700/80 border text-zinc-300 hover:border-zinc-600 hover:bg-zinc-800/40 transition-all duration-300 py-6 rounded-xl gap-3">
             <FcGoogle /> Continue with Google
           </Button>

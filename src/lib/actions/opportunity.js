@@ -48,6 +48,10 @@ export const getOpportunities = async (filters = {}) => {
     }
 }
 
+export const getOpportunitiesPaginated = async (page = 1, limit = 9, filters = {}) => {
+    return getOpportunities({ ...filters, page, limit });
+};
+
 export const updateOpportunity = async (id, opportunityData) => {
     try {
         const { _id, id: rawId, ...cleanData } = opportunityData;

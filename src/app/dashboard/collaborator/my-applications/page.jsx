@@ -204,7 +204,7 @@ const MyApplicationsPage = () => {
                                                             </h4>
                                                             {app.opportunityId && (
                                                                 <Link 
-                                                                    href={`/opportunitie-details/${app.opportunityId}`}
+                                                                    href={`/opportunity-details/${app.opportunityId}`}
                                                                     className="inline-flex items-center gap-1 text-[11px] text-zinc-500 hover:text-zinc-350 transition-colors mt-0.5"
                                                                 >
                                                                     View Details <ArrowUpRight className="w-3 h-3" />
@@ -273,7 +273,7 @@ const MyApplicationsPage = () => {
                                         
                                         {app.opportunityId && (
                                             <Link 
-                                                href={`/opportunitie-details/${app.opportunityId}`}
+                                                href={`/opportunity-details/${app.opportunityId}`}
                                                 className="inline-flex items-center gap-1 text-indigo-400 hover:underline"
                                             >
                                                 Details <ArrowUpRight className="w-3.5 h-3.5" />

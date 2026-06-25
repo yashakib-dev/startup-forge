@@ -224,7 +224,7 @@ const OpportunitiesPage = () => {
                                             <span>Apply Now</span>
                                         </div>
                                         <Link
-                                            href={`/opportunitie-details/${opportunity._id || opportunity.id}`}
+                                            href={`/opportunity-details/${opportunity._id || opportunity.id}`}
                                             className="inline-flex items-center gap-1 text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors"
                                         >
                                             View Details <ArrowRight className="w-4 h-4" />

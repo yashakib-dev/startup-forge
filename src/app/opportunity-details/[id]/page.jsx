@@ -89,13 +89,7 @@ const OpportunityDetailsPage = () => {
         </div>
     );
 
-    if (notFound) return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-zinc-950 text-zinc-400 gap-4">
-            <Briefcase className="w-12 h-12 opacity-30" />
-            <p className="text-lg font-semibold">Opportunity not found</p>
-            <button onClick={() => router.back()} className="text-sm text-indigo-400 hover:underline cursor-pointer">Go back</button>
-        </div>
-    );
+
 
     return (
         <div className="min-h-screen bg-zinc-950 text-zinc-100 py-12 px-4 sm:px-6">
@@ -131,10 +125,10 @@ const OpportunityDetailsPage = () => {
                             </div>
                             <div className="flex-1 min-w-0">
                                 <h1 className="text-2xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent truncate">
-                                    {opportunity.title}
+                                    {opportunity?.title}
                                 </h1>
                                 <span className="mt-1 inline-block text-xs font-semibold px-3 py-1 rounded-full bg-indigo-950/60 text-indigo-300 border border-indigo-800/50">
-                                    {opportunity.role || "Collaborator"}
+                                    {opportunity?.role || "Collaborator"}
                                 </span>
                             </div>
                         </div>
@@ -143,16 +137,16 @@ const OpportunityDetailsPage = () => {
                         <div className="bg-zinc-800/40 rounded-2xl p-5 border border-zinc-700/40 space-y-4">
                             <div>
                                 <p className="text-xs text-zinc-500 mb-1">Company / Startup</p>
-                                <p className="text-sm font-semibold text-zinc-200">{opportunity.startupName || "Unnamed Startup"}</p>
+                                <p className="text-sm font-semibold text-zinc-200">{opportunity?.startupName || "Unnamed Startup"}</p>
                             </div>
                             <div>
                                 <p className="text-xs text-zinc-500 mb-1">Description</p>
-                                <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-wrap">{opportunity.description}</p>
+                                <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-wrap">{opportunity?.description}</p>
                             </div>
-                            {opportunity.requirements && (
+                            {opportunity?.requirements && (
                                 <div>
                                     <p className="text-xs text-zinc-500 mb-1">Requirements</p>
-                                    <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-wrap">{opportunity.requirements}</p>
+                                    <p className="text-sm text-zinc-300 leading-relaxed whitespace-pre-wrap">{opportunity?.requirements}</p>
                                 </div>
                             )}
                         </div>
@@ -161,11 +155,11 @@ const OpportunityDetailsPage = () => {
                         <div className="bg-zinc-800/20 rounded-2xl p-4 border border-zinc-800/40 grid grid-cols-2 gap-4">
                             <div>
                                 <p className="text-xs text-zinc-500 mb-0.5">Location</p>
-                                <p className="text-sm font-semibold text-zinc-200">{opportunity.location || "Remote"}</p>
+                                <p className="text-sm font-semibold text-zinc-200">{opportunity?.location || "Remote"}</p>
                             </div>
                             <div>
                                 <p className="text-xs text-zinc-500 mb-0.5">Contact</p>
-                                <p className="text-sm font-semibold text-zinc-200">{opportunity.founderEmail || "Via Platform"}</p>
+                                <p className="text-sm font-semibold text-zinc-200">{opportunity?.founderEmail || "Via Platform"}</p>
                             </div>
                         </div>
 

@@ -13,12 +13,12 @@ const FeaturedOpportunitiesPage = () => {
     useEffect(() => {
         getOpportunities().then((data) => {
             if (data && !data.error) {
-                setOpportunities(Array.isArray(data) ? data : []);
+                setOpportunities(Array.isArray(data) ? data : data?.data || []);
             }
             setLoading(false);
         });
     }, []);
-
+        console.log("Opportunities data:", opportunities);
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen bg-zinc-950">
@@ -62,7 +62,7 @@ const FeaturedOpportunitiesPage = () => {
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <h3 className="text-lg font-bold text-zinc-100 group-hover:text-white truncate">
-                                                {opportunity.title}
+                                                {opportunity?.title}
                                             </h3>
                                             <p className="text-xs text-indigo-400 mt-0.5 font-medium">
                                                 {opportunity.startupName || "Startup Opportunity"}
@@ -72,19 +72,19 @@ const FeaturedOpportunitiesPage = () => {
 
                                     {/* Description */}
                                     <p className="text-zinc-400 text-sm line-clamp-3 leading-relaxed">
-                                        {opportunity.description}
+                                        {opportunity?.description}
                                     </p>
 
                                     {/* Badges / Tags */}
                                     <div className="flex flex-wrap gap-2 pt-2">
-                                        {opportunity.role && (
+                                        {opportunity?.role && (
                                             <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-indigo-950/60 text-indigo-300 border border-indigo-800/50">
                                                 {opportunity.role}
                                             </span>
                                         )}
-                                        {opportunity.location && (
+                                        {opportunity?.location && (
                                             <span className="text-[10px] font-semibold px-2.5 py-0.5 rounded-full bg-zinc-800 text-zinc-300 border border-zinc-700/50">
-                                                {opportunity.location}
+                                                {opportunity?.location}
                                             </span>
                                         )}
                                     </div>
@@ -97,7 +97,7 @@ const FeaturedOpportunitiesPage = () => {
                                         <span>Apply Now</span>
                                     </div>
                                     <Link
-                                        href={`/opportunitie-details/${opportunity._id || opportunity.id}`}
+                                        href={`/opportunity-details/${opportunity._id || opportunity.id}`}
                                         className="inline-flex items-center gap-1 text-sm font-semibold text-indigo-400 hover:text-indigo-300 transition-colors"
                                     >
                                         View Details <ArrowRight className="w-4 h-4" />

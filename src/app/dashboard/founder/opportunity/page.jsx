@@ -33,7 +33,8 @@ const OpportunityPage = () => {
     try {
       setLoading(true);
       const data = await getOpportunities();
-      setOpportunities(data || []);
+      const opportunitiesData = Array.isArray(data) ? data : data?.data || [];
+      setOpportunities(opportunitiesData);
     } catch (err) {
       console.error(err);
     } finally {
