@@ -1,36 +1,93 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Startup Forge
 
-## Getting Started
+Startup Forge is a Next.js application that connects founders with collaborators through opportunity postings, startup profiles, and application workflows. It includes founder, collaborator, and admin dashboards, native authentication, paginated opportunity browsing, and MongoDB-backed API routes.
 
-First, run the development server:
+## Live Links
+Client Live link: https://startup-forge-one.vercel.app/ <br>
+ServerLive link: https://startup-forge-server-alpha.vercel.app/
+## Key Features
+
+- Founder dashboard for posting and managing opportunities
+- Collaborator dashboard for browsing and applying to opportunities
+- Admin dashboard for managing startups, users, and transactions
+- Opportunity details, startup profiles, and application submission
+- Paginated opportunities listing and filter/search support
+- MongoDB backend via custom `src/app/api/opportunities` API routes
+- Stripe checkout integration for paid plans
+- Auth using `better-auth` and role-based access
+
+## Project Structure
+
+- `src/app/` - Next.js App Router pages and API routes
+- `src/components/` - shared UI components, dashboard widgets, pagination, and homepage blocks
+- `src/lib/actions/` - reusable server/client actions for opportunities, startups, payments, profiles, and users
+- `src/lib/api/` - API helpers for plans and other read-only data
+- `src/app/api/` - serverless handlers for auth, checkout, and opportunities
+- `src/app/dashboard/` - protected founder, collaborator, and admin dashboard routes
+
+## Development
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Run the app in development mode:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 in your browser.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Production Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Build the application:
 
-## Learn More
+```bash
+npm run build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Start the optimized production server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npm start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Important Routes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `/` - homepage
+- `/login` - sign in
+- `/register` - sign up
+- `/dashboard/founder` - founder dashboard
+- `/dashboard/collaborator` - collaborator dashboard
+- `/dashboard/admin` - admin dashboard
+- `/opportunities` - opportunity marketplace
+- `/opportunity-details/[id]` - opportunity detail page
+- `/startup-details/[id]` - startup profile page
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## API Endpoints
+
+- `GET /api/opportunities` - list opportunities (supports query filters)
+- `POST /api/opportunities` - create a new opportunity
+- `GET /api/opportunities/[id]` - fetch one opportunity
+- `PATCH /api/opportunities/[id]` - update opportunity
+- `DELETE /api/opportunities/[id]` - delete opportunity
+
+## Notes
+
+- The project uses React 19 and Next.js 16 App Router.
+- Components under `src/app` use both server and client rendering patterns.
+- Opportunity fetching is centralized in `src/lib/actions/opportunity.js`.
+
+## Troubleshooting
+
+- Ensure MongoDB credentials are valid and available in `MONGO_DB_URI`
+- If you change API route folders, rebuild the app with `npm run build`
+- Check `src/lib/actions/opportunity.js` when opportunity fetching behaves unexpectedly
+
+## License
+
+This project is provided as-is. Update this README with your own license and contributor information as needed.
